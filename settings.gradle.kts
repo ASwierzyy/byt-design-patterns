@@ -1,0 +1,1 @@
+rootProject.name = "byt-design-patterns"
