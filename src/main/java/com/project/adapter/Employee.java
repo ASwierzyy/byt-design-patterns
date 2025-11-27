@@ -7,9 +7,9 @@ public class Employee {
     private int id;
     private String name;
     private String designation;
-    private BigDecimal salary;
+    private double salary;
 
-    public Employee(int id, String name, String designation, BigDecimal salary) {
+    public Employee(int id, String name, String designation, double salary) {
         this.id = id;
         this.name = name;
         this.designation = designation;
@@ -42,11 +42,11 @@ public class Employee {
         this.designation = designation;
     }
 
-    public BigDecimal getSalary() {
+    public double getSalary() {
         return salary;
     }
 
-    public void setSalary(BigDecimal salary) {
+    public void setSalary(double salary) {
         this.salary = salary;
     }
 }

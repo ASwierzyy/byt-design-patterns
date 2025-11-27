@@ -1,17 +1,35 @@
 package com.project;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import com.project.adapter.EmployeeAdapter;
+import com.project.adapter.ITarget;
+import com.project.factory.DataAnalyticsEngine;
+import com.project.factory.DatabaseFactory;
+import com.project.factory.DatabaseType;
+import com.project.factory.IDatabase;
+import com.project.observer.ConcreteObserver;
+import com.project.observer.Subject;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
-
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+    // Factory
+        IDatabase db = DatabaseFactory.createDatabase(DatabaseType.Oracle);
+        DataAnalyticsEngine engine = new DataAnalyticsEngine(db);
+        engine.processData("SELECT * FROM SALES");
+    // Observer
+        Subject phone = new Subject("iPhone 16", 999, "Out of Stock");
+        ConcreteObserver adam = new ConcreteObserver("Adam");
+        ConcreteObserver kate = new ConcreteObserver("Kate");
+        adam.register(phone);
+        kate.register(phone);
+        phone.setAvailability("Available");
+        kate.unregister(phone);
+    // Adapter
+        String[][] employeesArray = {
+                {"101", "Adam", "Software Engineer", "75000"},
+                {"102", "Kate", "Product Manager", "90000"},
+                {"103", "John", "Tester", "55000"}
+        };
+        ITarget employeeAdapter = new EmployeeAdapter();
+        employeeAdapter.processCompanySalary(employeesArray);
     }
 }
